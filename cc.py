@@ -22,12 +22,9 @@ class CC(Thread):
                 key = self._window.getkey()
                 if str(key) == 'q':
                     self.stop()
-            except Exception as e:
+            except Exception:
                 pass
             sleep(self._delay)
 
     def stop(self):
         self._running = False
-
-    def is_running(self):
-        return self._running
