@@ -5,21 +5,17 @@ from time import sleep
 
 class CC(Thread):
 
-    def __init__(self, window):
+    def __init__(self):
         self._running = True
         self._delay = .001
-        self._window = window
-        curses.curs_set(False)
-        window_size = window.getmaxyx()
-        window.nodelay(True)
-        self.max_col = window_size[0] - 1
-        self.max_line = window_size[1] - 1
         Thread.__init__(self)
+        curses.wrapper(self.run)
 
-    def run(self):
+    def run(self, window):
+        print(window)
         while self._running:
             try:
-                key = self._window.getkey()
+                key = window.getkey()
                 if str(key) == 'q':
                     self.stop()
             except Exception:
