@@ -11,8 +11,15 @@ class CC(Thread):
         Thread.__init__(self)
         curses.wrapper(self.run)
 
+    def _init_params(self, window):
+        curses.curs_set(0)
+        window_size = window.getmaxyx()
+        window.nodelay(True)
+        self.max_col = window_size[0] - 1
+        self.max_line = window_size[1] - 1
+
     def run(self, window):
-        print(window)
+        self._init_params(window)
         while self._running:
             try:
                 key = window.getkey()
